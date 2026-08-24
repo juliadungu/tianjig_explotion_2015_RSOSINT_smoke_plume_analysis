@@ -1,6 +1,4 @@
-# Tracking the Tianjin Explosion from Space
-
-### Reconstructing the post-explosion smoke plume using open-source satellite imagery
+## Reconstructing the post-explosion smoke plume using open-source satellite imagery
 
 On 12 August 2015, a series of explosions struck a hazardous-goods storage facility in the port of Tianjin, China. The explosions were followed by extensive fires that continued to produce a large smoke plume into the following day.
 
