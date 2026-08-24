@@ -1,104 +1,544 @@
-### Case Study: An OSINT Reconstruction of the August 2015 Smoke Plume of the Tianjin Explosion from Space, temporal and spatial verification of an industrial disaster using multiple independent open satellite observations.
+# Tracking the Tianjin Explosion from Space
 
-This is a case study analysing the smoke plume of the Tianjin port explosion. 
+### Reconstructing the post-explosion smoke plume using open-source satellite imagery
 
-[![Watch the video](https://img.youtube.com/vi/993wlZ6XFSs/hqdefault.jpg)](https://www.youtube.com/watch?v=993wlZ6XFSs)
+On 12 August 2015, a series of explosions struck a hazardous-goods storage facility in the port of Tianjin, China. The explosions were followed by extensive fires that continued to produce a large smoke plume into the following day.
 
-Core evidence:
-The [NASA Earth Observatory image](https://science.nasa.gov/earth/earth-observatory/smoke-over-the-bohai-sea-86410/?utm_source=chatgpt.com). NASA says Terra/MODIS captured the plume at 02:30 UTC (10:30 local) on 13 August, and Aqua/MODIS captured it again roughly three hours later. Between those observations, the plume moved southeast toward the Shandong Peninsula.
-This [animation](https://rammb.cira.colostate.edu/templates/loop_directory.asp?data_folder=dev%2Flindsey%2Floops%2F13aug15_ahi_truecolor&image_height=720&image_width=1020&utm_source=chatgpt.com) CIRA/RAMMB Himawari-8 shows how the event evolves by showing the smoke initially move wast before winds curl it south. 
-The image and the animation come from the Advanced Himawari Imager (AHI) Imager and [explains](https://rammb.cira.colostate.edu/quarterly_reports/4qtr15/MRFutureSatelliteStudies.htm?utm_source=chatgpt.com) how its true-color imagery was generated.
+The scale of the event was captured by eyewitnesses on the ground:
 
-Himawari-8 = timeline
-Terra MODIS = verification snapshot #1
-Aqua MODIS = verification snapshot #2
+[![BBC News eyewitness footage of the Tianjin explosion](https://img.youtube.com/vi/993wlZ6XFSs/maxresdefault.jpg)](https://www.youtube.com/watch?v=993wlZ6XFSs)
 
+*Eyewitness footage published by BBC News. The video captures the fire and subsequent explosions from a distant viewpoint.*
 
-In this verification analysis I use publicly available satellite imagery independently to construct the movement of smoke following the Tianjin explosions.
+The atmospheric consequences were also visible from space.
 
-Let's build a chronological reconstruction.
+NASA's Terra satellite observed a dark plume extending from Tianjin over the Bohai Sea at **02:30 UTC on 13 August**. Approximately three hours later, Aqua observed the plume farther southeast, toward the Shandong Peninsula.
 
-1 - Establishing the event location and time.
-Geolocate the Ruihai warehouse/explosion site. Mark it on a map and establish the reported explosion time.
+At the same time, Japan's geostationary **Himawari-8** satellite was repeatedly imaging the region.
 
-2 - Identifying the plume in Himawari-8.
-Go through your CIRA sequence frame by frame. Record the timestamp at which the dark plume becomes clearly distinguishable.
+Unlike the individual Terra and Aqua observations, Himawari-8 provides a time series. This makes it possible to reconstruct how the plume moved between the two NASA observations.
 
-3 - Tracking the plume 
-Take perhaps 5–8 representative Himawari frames rather than showing the entire animation.
+This investigation asks:
 
-Draw or digitize the approximate plume centreline in each frame.
+> **Can the movement of the smoke plume following the Tianjin explosions be independently reconstructed using openly available satellite imagery?**
 
-Now you have an OSINT-derived trajectory.
+The analysis uses Himawari-8 imagery to reconstruct the plume trajectory and NASA Terra and Aqua MODIS imagery as independent observations against which that reconstruction can be tested.
 
-4 — Independently verify it with NASA
-NASA's Terra image is an independent observation at 02:30 UTC.
+---
 
-Find the closest Himawari frame to 02:30 UTC.
+## Data
 
-Comparison:
+Three principal open-source satellite datasets are used.
 
-|                | Himawari-8    | Terra MODIS |
-| -------------- | ------------- | ----------- |
-| Time           | ~02:30 UTC    | 02:30 UTC   |
-| Satellite      | Geostationary | Polar orbit |
-| Instrument     | AHI           | MODIS       |
-| Plume visible? | Yes           | Yes         |
-| Direction      | E/SE          | E/SE        |
+| Source                 | Satellite / instrument | Purpose                       |
+| ---------------------- | ---------------------- | ----------------------------- |
+| NASA Earth Observatory | Terra / MODIS          | Independent plume observation |
+| NASA Earth Observatory | Aqua / MODIS           | Independent later observation |
+| CIRA / JMA             | Himawari-8 / AHI       | Plume time series             |
 
-Then do it again with the Aqua observation approximately three hours later. NASA reports that by then the plume had migrated southeast toward the Shandong Peninsula.
+### NASA MODIS
 
-5 — Add another independent sensor
+NASA Earth Observatory published two MODIS observations of the plume on 13 August 2015.
 
-There's a particularly good addition that makes the case study much richer.
+**Terra/MODIS:** approximately **02:30 UTC**
 
-CIMSS documented the Tianjin event using multiple Himawari-8 infrared channels, including 1.6, 2.3 and 3.9 μm imagery. It also provides Suomi NPP VIIRS Day/Night Band images from August 9 and August 13, noting that they suggest power outages around the explosion site.
+**Aqua/MODIS:** approximately **three hours later**
 
-CIMSS Tianjin satellite analysis
+NASA describes the dark plume as initially drifting over the Bohai Sea before moving southeast toward the Shandong Peninsula.
 
-Now your investigation isn't dependent on one type of imagery.
+**Source:**
+https://science.nasa.gov/earth/earth-observatory/smoke-over-the-bohai-sea-86410/
 
-                         TIANJIN EXPLOSION
-                                │
-              ┌─────────────────┼─────────────────┐
-              │                 │                 │
-         Himawari-8          MODIS             VIIRS
-            AHI          Terra + Aqua        Day/Night
-              │                 │                 │
-              ▼                 ▼                 ▼
-       plume movement      plume position    possible
-         over time          verification    power outage
+### Himawari-8
 
-  That's a genuinely good multi-source OSINT workflow.
+The Advanced Himawari Imager (AHI) aboard Himawari-8 repeatedly observed the region during the same period.
 
-  The final product could be very clean
+The complete true-colour sequence is available through CIRA/RAMMB:
 
-I'd make it roughly 6–8 figures, not a huge report.
+**Source:**
+https://rammb.cira.colostate.edu/templates/loop_directory.asp?data_folder=dev/lindsey/loops/13aug15_ahi_truecolor&image_width=1020&image_height=720
 
-Fig. 1 — Where and when
-Map of Tianjin port + explosion location.
+NASA independently references this sequence and describes it as showing the smoke moving east during the early morning before curling south.
 
-Fig. 2 — Ground perspective
-One verified eyewitness frame showing the explosion/fire.
+---
 
-Fig. 3 — First satellite detection
-Early Himawari-8 frame showing the plume.
+# Identifying the Plume
 
-Fig. 4 — Tracking from space
-Four Himawari frames showing E → SE plume movement.
+Satellite imagery of eastern China on 13 August contains more than one atmospheric feature.
 
-Fig. 5 — Independent corroboration
-Himawari ~02:30 UTC beside Terra MODIS 02:30 UTC.
+Cloud, haze and unrelated smoke are visible across the region. NASA notes that lighter gray smoke elsewhere in the imagery was likely produced by wildfires in eastern China.
 
-Fig. 6 — Later corroboration
-Himawari beside Aqua MODIS ~3 hours later.
+The Tianjin plume therefore cannot be identified simply by selecting any visible smoke.
 
-Fig. 7 — Your analysis
-Plume trajectory plotted on a map, with timestamps.
+Three criteria are used:
 
-Fig. 8 — Additional evidence
-VIIRS before/after nighttime imagery / reported power disruption.
+### Origin
 
+The feature must be spatially connected with the Tianjin source area.
 
+### Continuity
 
+The feature must remain identifiable between consecutive Himawari-8 observations.
 
+### Temporal consistency
+
+Movement between frames must form a continuous trajectory away from the Tianjin source.
+
+A feature is treated as part of the Tianjin plume only when these conditions are satisfied.
+
+---
+
+# Building a Satellite Time Series
+
+Five representative Himawari-8 observations are selected from the sequence.
+
+| Frame | Purpose                             |
+| ----- | ----------------------------------- |
+| H1    | Earliest clearly identifiable plume |
+| H2    | Clear eastward displacement         |
+| H3    | Observation closest to Terra/MODIS  |
+| H4    | Clear change in plume direction     |
+| H5    | Observation closest to Aqua/MODIS   |
+
+Three geographic points are recorded for each observation.
+
+### Source — S
+
+The known fire/explosion area.
+
+This remains fixed throughout the analysis.
+
+### Plume centroid — C
+
+The approximate geographic centre of the confidently identifiable dense plume.
+
+### Leading edge — L
+
+The furthest confidently identifiable point of the plume along its principal direction of travel.
+
+The resulting dataset has the following structure:
+
+```text
+frame_id
+date
+utc_time
+source_lat
+source_lon
+centroid_lat
+centroid_lon
+leading_edge_lat
+leading_edge_lon
+```
+
+---
+
+# Reconstructing the Plume Trajectory
+
+For every Himawari observation, the geographic distance between the source and plume centroid is calculated:
+
+[
+d_i = distance(S,C_i)
+]
+
+The bearing from the source to the centroid is also calculated:
+
+[
+\theta_i = bearing(S,C_i)
+]
+
+This produces two independent measurements of plume evolution:
+
+**distance from Tianjin**
+
+and
+
+**direction from Tianjin.**
+
+The resulting dataset takes the form:
+
+| UTC | Distance from source | Bearing |
+| --- | -------------------: | ------: |
+| H1  |                 — km |      —° |
+| H2  |                 — km |      —° |
+| H3  |                 — km |      —° |
+| H4  |                 — km |      —° |
+| H5  |                 — km |      —° |
+
+No measurement is inferred from NASA's description. All values are derived independently from the Himawari imagery.
+
+---
+
+## Plume Trajectory
+
+The centroid coordinates are plotted on a common geographic reference system.
+
+```text
+                    N
+                    │
+
+                 Tianjin
+                    ● S
+                     \
+                      C1
+                        \
+                         C2
+                           ── C3
+                                \
+                                 C4
+                                   \
+                                    C5
+                                     ↓
+                                 Bohai Sea
+```
+
+Connecting the observations chronologically provides an independently derived trajectory of the visible plume.
+
+### Figure 1
+
+**Himawari-8 reconstruction of the Tianjin plume trajectory, 13 August 2015.**
+
+---
+
+# Detecting the Change in Direction
+
+Visual inspection suggests that the plume did not travel along a constant bearing.
+
+This can be tested quantitatively.
+
+For each observation:
+
+[
+\theta_i = bearing(S,C_i)
+]
+
+A plume travelling directly east would have a bearing close to:
+
+[
+90^\circ
+]
+
+Movement toward the southeast would progressively increase that bearing.
+
+Plotting bearing against UTC therefore tests whether the apparent southward turn visible in the imagery can also be detected numerically.
+
+### Figure 2
+
+**Bearing of the plume centroid from Tianjin through time.**
+
+**X-axis:** UTC
+**Y-axis:** bearing (degrees)
+
+This converts a qualitative observation — *the plume appears to turn south* — into a reproducible geographic measurement.
+
+---
+
+# Measuring Plume Displacement
+
+The distance travelled between successive centroid observations is calculated as:
+
+[
+\Delta d = distance(C_i,C_{i+1})
+]
+
+An apparent displacement rate can then be calculated:
+
+[
+v_a = \frac{\Delta d}{\Delta t}
+]
+
+This is described as **apparent plume displacement**, not wind speed.
+
+Smoke is continuously generated, dispersed and deformed. The centroid does not represent a single parcel of air moving intact through the atmosphere.
+
+The measurement nevertheless provides a useful description of how rapidly the observed plume position changed.
+
+### Figure 3
+
+**Distance of the observed plume centroid from Tianjin through time.**
+
+---
+
+# Validation
+
+The reconstruction so far depends entirely on Himawari-8.
+
+This raises an important question:
+
+> **Would an independent satellite observe the plume in the same location?**
+
+NASA's Terra and Aqua satellites provide two opportunities to test this.
+
+---
+
+## Terra/MODIS
+
+At approximately **02:30 UTC**, MODIS aboard NASA's Terra satellite acquired an image of the dark plume over the Bohai Sea.
+
+The Himawari observation closest to 02:30 UTC is selected independently.
+
+The two observations are then compared.
+
+| Himawari-8             | Terra                         |
+| ---------------------- | ----------------------------- |
+| AHI                    | MODIS                         |
+| Geostationary          | Polar orbit                   |
+| Derived plume position | Independent plume observation |
+| ~02:30 UTC             | 02:30 UTC                     |
+
+The test is spatial:
+
+> **Does the Himawari-derived plume position correspond with the plume independently observed by Terra?**
+
+### Figure 4
+
+**Himawari-8 and Terra/MODIS observations at approximately 02:30 UTC.**
+
+Agreement between the two observations provides cross-sensor validation of the reconstruction.
+
+---
+
+# A Second Independent Test
+
+Approximately three hours after the Terra observation, MODIS aboard **Aqua** observed the plume again.
+
+By this point NASA reports that it had moved southeast toward the Shandong Peninsula.
+
+The same validation procedure is repeated.
+
+The closest Himawari observation is selected without reference to the Aqua image.
+
+Its derived plume position is then compared with Aqua.
+
+### Figure 5
+
+**Himawari-8 and Aqua/MODIS observations approximately three hours after the Terra overpass.**
+
+The reconstruction therefore passes two independent checkpoints:
+
+```text
+                     HIMAWARI-8
+                         │
+                         │
+                  plume trajectory
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+              ▼                     ▼
+        Terra / MODIS         Aqua / MODIS
+         ~02:30 UTC             ~05:30 UTC
+              │                     │
+              └──────────┬──────────┘
+                         │
+                         ▼
+                 CROSS-VALIDATION
+```
+
+The value of this comparison is that the reconstruction is not dependent on a single satellite, instrument or orbital configuration.
+
+---
+
+# Control Test
+
+A temporal relationship alone does not demonstrate that a visible feature is unusual.
+
+A pre-event Himawari observation therefore provides a control.
+
+The same geographic extent, source location and plume-identification criteria are applied to imagery acquired before the explosions.
+
+The question is:
+
+> **Was a comparable persistent dark plume already originating from the same location before the event?**
+
+### Figure 6
+
+**Comparable Himawari-8 observations before and after the Tianjin explosions.**
+
+The comparison uses the same:
+
+* geographic extent;
+* source marker;
+* image processing;
+* approximate local time.
+
+A persistent pre-existing plume would weaken attribution.
+
+The appearance of a new plume spatially connected with the fire site after the explosions would strengthen it.
+
+---
+
+# Meteorological Cross-Check
+
+The satellite reconstruction establishes the **observed** direction of plume movement.
+
+Historical meteorological observations provide an independent physical consistency test.
+
+Wind direction over Tianjin and the Bohai Sea during the relevant period can be compared against the trajectory derived from Himawari-8.
+
+Importantly, meteorological data are not used to determine the plume positions.
+
+The two analyses remain independent:
+
+```text
+Himawari imagery
+       │
+       ▼
+Observed trajectory
+       │
+       ├──────── comparison ────────┐
+       │                            │
+       ▼                            ▼
+plume direction              historical winds
+```
+
+Agreement would provide an additional layer of corroboration.
+
+Disagreement would require investigation rather than adjustment of the satellite-derived trajectory.
+
+---
+
+# Uncertainty
+
+A smoke plume does not have a sharply defined geographic boundary.
+
+The centroid and leading edge are therefore interpreted measurements rather than exact physical positions.
+
+To estimate this uncertainty, each selected image can be digitised multiple times independently.
+
+The spread between repeated placements provides an approximate positional uncertainty.
+
+Final trajectory maps should therefore display uncertainty envelopes rather than implying metre-level precision.
+
+---
+
+# What Can We Establish?
+
+The combined satellite evidence can potentially establish:
+
+**Origin**
+Whether the observed plume is spatially connected with Tianjin.
+
+**Persistence**
+Whether it remains identifiable through successive observations.
+
+**Direction**
+How its geographic bearing changes through time.
+
+**Displacement**
+How the position of the visible plume changes relative to the source.
+
+**Cross-sensor consistency**
+Whether independent MODIS observations correspond with the Himawari reconstruction.
+
+**Meteorological consistency**
+Whether the observed trajectory is compatible with independently recorded atmospheric conditions.
+
+These conclusions depend on observable spatial and temporal relationships rather than interpretation of a single image.
+
+---
+
+# Limitations
+
+This analysis does **not** use plume appearance to estimate explosive yield.
+
+True-colour satellite imagery alone cannot reliably determine:
+
+* chemical composition;
+* toxicity;
+* explosive yield;
+* blast pressure;
+* precise plume altitude;
+* structural damage on the ground.
+
+Apparent plume displacement should also not be interpreted directly as wind speed.
+
+Most importantly, the satellite imagery primarily documents smoke produced by the **fires following the explosions**. It should not automatically be interpreted as material produced solely by the initial explosions.
+
+---
+
+# Conclusion
+
+The Tianjin explosions provide an unusually well-documented example of a rapidly developing event observed simultaneously from the ground and from space.
+
+Eyewitness footage establishes the scale and timing of the event from the ground.
+
+Himawari-8 provides repeated observations from geostationary orbit, allowing the subsequent smoke plume to be followed through time.
+
+Terra and Aqua provide independent MODIS observations at two points during that trajectory.
+
+Together, these sources allow a simple proposition to be tested:
+
+> **Can a plume trajectory derived from one open satellite dataset predict where the same plume will appear in independent satellite observations?**
+
+Rather than treating satellite imagery as illustration, this workflow treats each observation as evidence that can be measured, compared and independently challenged.
+
+---
+
+# Repository Structure
+
+```text
+tianjin-plume-osint/
+│
+├── README.md
+│
+├── data/
+│   ├── plume_points.csv
+│   ├── observations.csv
+│   └── sources.csv
+│
+├── images/
+│   ├── himawari/
+│   ├── modis/
+│   └── figures/
+│
+├── notebooks/
+│   └── plume_analysis.ipynb
+│
+├── scripts/
+│   ├── calculate_distance.py
+│   ├── calculate_bearing.py
+│   └── plot_trajectory.py
+│
+└── LICENSE
+```
+
+## `plume_points.csv`
+
+```text
+frame_id,date,utc_time,satellite,instrument,source_lat,source_lon,centroid_lat,centroid_lon,leading_edge_lat,leading_edge_lon,distance_km,bearing_deg
+```
+
+Every derived geographic measurement should be traceable to a specific source image.
+
+---
+
+# Sources
+
+### Satellite imagery
+
+**NASA Earth Observatory — Smoke over the Bohai Sea**
+https://science.nasa.gov/earth/earth-observatory/smoke-over-the-bohai-sea-86410/
+
+**CIRA/RAMMB — Himawari-8 AHI true-colour sequence**
+https://rammb.cira.colostate.edu/templates/loop_directory.asp?data_folder=dev/lindsey/loops/13aug15_ahi_truecolor&image_width=1020&image_height=720
+
+### Ground footage
+
+**BBC News — Tianjin explosion eyewitness footage**
+https://www.youtube.com/watch?v=993wlZ6XFSs
+
+### Methodological inspiration
+
+**Bellingcat — Remote Sensing for OSINT: Blast Damage Assessment**
+https://bellingcat.github.io/RS4OSINT/C3_Blast.html
+
+---
+
+## Attribution
+
+NASA describes the 13 August MODIS observations as showing dark smoke associated with fires following the Tianjin explosions moving east and southeast over the Bohai Sea.
+
+The Himawari-8 imagery is provided through the Regional and Mesoscale Meteorology Branch / Cooperative Institute for Research in the Atmosphere (RAMMB/CIRA), using imagery from the Advanced Himawari Imager.
+
+The embedded ground video was published by BBC News.
+
+All analytical measurements, plume annotations, derived coordinates, trajectory calculations and validation tests in this repository should be identified separately as **derived OSINT analysis**.
