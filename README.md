@@ -218,19 +218,6 @@ The investigation supports a conservative two-phase reconstruction.
 - Across 15 threshold combinations, the displacement remains in a **42.9–61.4 km** range with bearings of **154–171°**.
 - The robust result is therefore **tens of kilometres of apparent south-southeast plume-core displacement**, consistent with NASA's qualitative description of southeastward movement toward the Shandong Peninsula.
 
-Taken together, the sources independently support:
-
-```text
-15:30 UTC        15:34 UTC        15:40 UTC             17:50 UTC
-H1 Himawari ───► explosions ───► H2 Himawari ───────► H3 Himawari
-   SWIR                                  │
-                                        │ overnight observational gap
-                                        ▼
-13 Aug 02:30 UTC                                      about three hours later
-N1 Terra/MODIS ───────────────────────────────────────────► N2 Aqua/MODIS
-dark plume                                                plume shifted SSE
-```
-
 The analysis does **not** fill the overnight observational gap with an inferred trajectory.
 
 ---
