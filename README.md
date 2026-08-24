@@ -1,6 +1,6 @@
-# Tracking the Tianjin Explosion from Space
+# Reconstructing the Tianjin Explosion from Space
 
-### A reproducible RSOSINT reconstruction using shortwave-infrared change detection, matched controls, and MODIS plume displacement
+### A remote-sensing OSINT event reconstruction using shortwave-infrared imagery and MODIS observations
 
 On 12 August 2015, two major explosions struck the Ruihai hazardous-goods warehouse in Tianjin. The official investigation records the first explosion at **23:34:06 local time (15:34:06 UTC)** and the second at **23:34:37 local time (15:34:37 UTC)**.
 
@@ -14,7 +14,7 @@ The following morning, NASA's **Terra/MODIS** instrument observed a dark smoke p
 
 Two quantitative checks are added to this chronology:
 
-- the **15:30 → 15:40 Himawari-8 rendered-SWIR change** at the event site is compared against **31 matched control ROIs**;
+- the **15:30 → 15:40 Himawari-8 rendered-SWIR change** inside the analysis ROI is compared against **31 matched control ROIs**;
 - the **Terra → Aqua displacement** of a reproducibly defined dark-plume proxy is measured in the common NASA image frame and tested across multiple threshold settings.
 
 The first test finds that the event-site H1→H2 contrast increase is larger than all 31 matched controls. The second places the later visible plume-core displacement at roughly **40–60 km toward the south-southeast**, with a nominal estimate of **50.8 km at 164.8°**.
@@ -28,7 +28,7 @@ This repository deliberately separates two evidence phases rather than pretendin
 1. **Immediate event record — 12 August:** CIMSS shortwave-infrared satellite sequence.
 2. **Later atmospheric aftermath — 13 August:** NASA Terra and Aqua MODIS imagery.
 
-The analysis therefore reconstructs an **event chronology**, not a continuous plume trajectory across the entire night.
+The analysis is a **remote-sensing OSINT event reconstruction**: it reconstructs the observable event chronology and later atmospheric aftermath, without claiming a continuous plume trajectory across the night.
 
 ---
 
@@ -48,9 +48,9 @@ The source animation is preserved in [`images/himawari/`](images/himawari/), and
 
 ## Key findings
 
-- The fixed event-site ROI's rendered local-contrast metric rises from **8.70 at 15:30 UTC to 19.78 at 15:40 UTC**, a **~127% increase** across the independently known explosion interval.
-- The same H1→H2 contrast change is **larger than all 31 matched control ROIs**;
-- In the temporal placebo, the 15:30→15:40 interval ranks **#1 of 24** by absolute 10-minute change and **#1 of 24** by signed increase; controls range from **−1.28 to +6.50**, versus **+11.08** at the event site.
+- The fixed analysis ROI's rendered local-contrast metric rises from **8.70 at 15:30 UTC to 19.78 at 15:40 UTC**, a **~127% increase** across the independently known explosion interval.
+- The H1→H2 contrast change is **larger than all 31 matched control ROIs**: controls range from **−1.28 to +6.50**, versus **+11.08** in the analysis ROI.
+- In the temporal placebo, the 15:30→15:40 interval ranks **#1 of 24** by absolute 10-minute change and **#1 of 24** by signed increase.
 - The event-site signal remains elevated at H3 (**13.41** at 17:50 UTC), while the full 10-minute series shows continued evolution after the explosions.
 - Terra and Aqua use an effectively identical 720×480 presentation frame, allowing direct pixel comparison after an ORB/RANSAC registration check.
 - A threshold-sensitive dark-plume proxy gives a nominal Terra→Aqua centroid displacement of **50.8 km at 164.8°**. Across 15 reasonable threshold combinations, estimates range from **42.9–61.4 km** and **154–171°**.
@@ -118,7 +118,7 @@ For example, the H2 source composite contains Himawari-8 at **15:40 UTC**, MTSAT
 
 ![H3 Himawari-8 3.9 µm at 17:50 UTC](images/himawari/selected/H3_himawari_2015-08-12_1750Z.jpg)
 
-**Himawari-8 time: 17:50 UTC.** This frame is used as a later state within the same CIMSS sequence.
+**Himawari-8 time: 17:50 UTC.** This frame is a **representative later observation**, selected to show the subsequent state within the same CIMSS sequence; it was not chosen by an optimization rule.
 
 It demonstrates continued atmospheric/thermal evolution after the event. It is **not** treated as a georeferenced measurement of plume distance, bearing, or wind speed.
 
@@ -128,7 +128,7 @@ It demonstrates continued atmospheric/thermal evolution after the event. It is *
 
 The source GIF is a rendered, color-enhanced product rather than calibrated radiance data. Quantitative analysis is therefore restricted to **rendered-image change**, not physical temperature, radiance, energy, or explosive yield.
 
-A fixed **60 × 60 pixel** region of interest (ROI) is placed around the persistent event-site thermal feature in the Himawari-8 panel. The same pixel coordinates are used for every 10-minute Himawari observation from **15:00 to 19:00 UTC**.
+A fixed **60 × 60 pixel region of interest (ROI)** is drawn around the persistent thermal feature associated with the Tianjin event in the rendered Himawari-8 panel. The ROI was selected from the imagery itself; it was **not independently projected from the warehouse coordinates**. The same pixel coordinates are then held fixed for every 10-minute Himawari observation from **15:00 to 19:00 UTC**.
 
 ![H1-H2-H3 with ROI](figures/figure_h1_h2_h3_roi.png)
 
@@ -158,7 +158,7 @@ The full 10-minute sequence gives the necessary context:
 
 The metric begins increasing before the explosions, consistent with the fact that a fire was already underway. A much sharper change is visible across the independently bracketed **15:30 → 15:40** interval containing the two explosions at 15:34 UTC. The rendered local contrast continues to evolve afterward and reaches larger values later in the sequence before declining.
 
-This is evidence of a **substantial change in the rendered Himawari SWIR signal at the event site**. It is not, by itself, a measurement of explosion energy.
+This is evidence of a **substantial change in the rendered Himawari SWIR signal inside the fixed analysis ROI**. It is not, by itself, a measurement of explosion energy.
 
 ## H2 − H1 difference image
 
@@ -190,17 +190,17 @@ python scripts/analyze_himawari_roi.py
 
 # 4. Spatial validation with matched control ROIs
 
-The H1→H2 event-site change could only be meaningful if it is larger than ordinary short-interval variation elsewhere in the rendered scene. A control experiment therefore uses **31 nearby 60×60 pixel ROIs** chosen by a fixed rule from the H1 image, before considering their H2 change.
+The H1→H2 analysis-ROI change could only be meaningful if it is larger than ordinary short-interval variation elsewhere in the rendered scene. A control experiment therefore uses **31 nearby 60×60 pixel ROIs** chosen by a fixed rule from the H1 image, before considering their H2 change.
 
 Control candidates must:
 
 - lie on a 30-pixel sampling grid;
 - avoid a 180×180 pixel exclusion area around the event ROI;
-- remain left of the strong convective feature on the eastern side of the panel;
+- fall within the predefined control-search area used by the script and outside the event exclusion zone;
 - have an H1 mean rendered intensity within **±10** units of the event ROI;
 - have H1 rendered-intensity standard deviation **≤15**.
 
-This makes the controls broadly similar to the event ROI at baseline without selecting them according to their post-event behavior.
+This makes the controls broadly similar to the analysis ROI at baseline without selecting them according to their H2 behavior. The exact search bounds and exclusion coordinates are recorded in `scripts/validate_with_controls.py`.
 
 ![Matched control ROI layout](figures/figure_control_roi_layout.png)
 
@@ -227,7 +227,7 @@ A ranked view shows the same result:
 
 ![Ranked event and controls](figures/figure_event_vs_controls_ranked.png)
 
-This strengthens the narrow claim that the sharp H1→H2 change was **spatially concentrated at the event site rather than representative of ordinary scene-wide variation in comparable nearby regions**.
+This strengthens the narrow claim that the sharp H1→H2 change was **spatially concentrated inside the analysis ROI rather than representative of ordinary scene-wide variation in comparable nearby regions**.
 
 It does not transform the rendered GIF into calibrated physical measurements. The result remains a test of **relative rendered-image change**.
 
@@ -253,7 +253,7 @@ python scripts/validate_with_controls.py
 
 # 5. Temporal placebo test
 
-The spatial-control test asks whether the H1→H2 change is unusually concentrated at the event site. A separate temporal placebo asks whether the **15:30→15:40** change is unusual compared with every other adjacent 10-minute interval in the same fixed event-site ROI.
+The spatial-control test asks whether the H1→H2 change is unusually concentrated inside the analysis ROI. A separate temporal placebo asks whether the **15:30→15:40** change is unusual compared with every other adjacent 10-minute interval in the same fixed analysis ROI.
 
 The same rendered local-contrast metric is differenced across all **24** adjacent 10-minute intervals from 15:00 to 19:00 UTC.
 
@@ -273,11 +273,11 @@ It ranks:
 #1 of 24 for absolute 10-minute changes
 ```
 
-Only **1 of 24** intervals have a signed increase at least as large as the explosion interval, and **1 of 24** have an absolute change at least as large.
+Only **1 of 24** intervals has a signed increase at least as large as the explosion interval, and only **1 of 24** has an absolute change at least as large.
 
 ![Temporal placebo ranked](figures/figure_himawari_temporal_placebo_ranked.png)
 
-This means the H1→H2 jump is not only spatially unusual relative to matched nearby controls; it is also among the strongest short-interval changes observed at the event site during the four-hour Himawari sequence.
+This means the H1→H2 jump is not only spatially unusual relative to matched nearby controls; it is also among the strongest short-interval changes observed inside the analysis ROI during the four-hour Himawari sequence.
 
 This is a descriptive empirical comparison, not a formal significance test.
 
@@ -367,9 +367,9 @@ Because the mask operates on rendered RGB values, the estimate is tested across 
 
 ![MODIS threshold sensitivity](figures/figure_modis_displacement_sensitivity.png)
 
-The robust conclusion is therefore not an exact 50.8 km trajectory. It is that the visually dark plume core shifted on the order of **tens of kilometres—roughly 40–60 km—toward the south-southeast** between the two NASA observations.
+The **50.8 km / 164.8°** value is an image-derived estimate from the rendered NASA figures, not a measurement from georeferenced MODIS Level-1 data. The robust conclusion is therefore simply that the visually dark plume core shifted **roughly 40–60 km toward the south-southeast** between the two NASA observations.
 
-This is an **apparent plume-centroid displacement**, not wind speed. The plume is evolving, dispersing and being replenished by ongoing fires.
+This is an **apparent plume-centroid displacement**, not wind speed. The sensitivity test varies the proxy-mask thresholds; it does not quantify every source of uncertainty, such as the manually read scale bar or analysis-window placement.
 
 Data:
 
@@ -393,9 +393,9 @@ The investigation supports a conservative two-phase reconstruction.
 
 ### Immediate event phase
 
-- The official investigation independently places the two explosions at **15:34:06 and 15:34:37 UTC**.
+- The cited local explosion times convert to **15:34:06 and 15:34:37 UTC**.
 - Himawari-8 provides a rendered 3.9 µm SWIR observation at **15:30 UTC** and another at **15:40 UTC**, bracketing the explosion interval.
-- In a fixed 60×60 pixel event-site ROI, rendered local contrast increases from **8.70 to 19.78** across H1→H2, approximately **+127%**.
+- In a fixed 60×60 pixel analysis ROI, rendered local contrast increases from **8.70 to 19.78** across H1→H2, approximately **+127%**.
 - The corresponding H1→H2 change of **+11.08** exceeds the complete range observed in **31 baseline-matched control ROIs** (**−1.28 to +6.50**).
 - The same event-site metric remains above H1 at **17:50 UTC**, while the complete 10-minute sequence shows continued post-event evolution.
 
@@ -497,6 +497,7 @@ Reproduce the two quantitative phases with:
 ```bash
 python scripts/analyze_himawari_roi.py
 python scripts/validate_with_controls.py
+python scripts/temporal_placebo_test.py
 python scripts/analyze_modis_displacement.py
 ```
 
@@ -529,11 +530,4 @@ https://aiche.onlinelibrary.wiley.com/doi/10.1002/prs.11837
 **BBC News eyewitness video**  
 https://www.youtube.com/watch?v=993wlZ6XFSs
 
-**Bellingcat RS4OSINT — methodological inspiration**  
-https://bellingcat.github.io/RS4OSINT/C3_Blast.html
-
 ---
-
-## Methodological note
-
-This repository follows the evidentiary discipline of remote-sensing OSINT: preserve original source files; retain embedded timestamps; separate asynchronous sensors; distinguish rendered-image metrics from physical measurements; test event-site change against baseline-matched controls selected without using H2 values; test rendered-image plume displacement across multiple thresholds; use independent sources as temporal checks; and state observational gaps rather than interpolating across them.
