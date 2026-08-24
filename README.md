@@ -48,13 +48,10 @@ The source animation is preserved in [`images/himawari/`](images/himawari/), and
 
 ## Key findings
 
-- The fixed analysis ROI's rendered local-contrast metric rises from **8.70 at 15:30 UTC to 19.78 at 15:40 UTC**, a **~127% increase** across the independently known explosion interval.
-- The H1→H2 contrast change is **larger than all 31 comparison areas**: their changes range from **−1.28 to +6.50**, versus **+11.08** in the Tianjin analysis area.
-- The event-site signal remains elevated at H3 (**13.41** at 17:50 UTC), while the full 10-minute series shows continued evolution after the explosions.
-- Terra and Aqua use an effectively identical 720×480 presentation frame, allowing direct pixel comparison after an ORB/RANSAC registration check.
-- A threshold-sensitive dark-plume proxy gives a nominal Terra→Aqua centroid displacement of **50.8 km at 164.8°**. Across 15 reasonable threshold combinations, estimates range from **42.9–61.4 km** and **154–171°**.
-- The robust MODIS conclusion is therefore **roughly 40–60 km of apparent plume-core displacement toward the south-southeast**, not an exact trajectory and not wind speed.
-
+- Himawari-8 shows a clear change around Tianjin across the selected observations.
+- The change is larger than those measured in the 31 comparison areas.
+- NASA Terra and Aqua imagery shows the later plume moving south-southeast.
+- The rendered NASA imagery suggests the visible plume core shifted roughly 40–60 km.
 ---
 
 # 1. Establishing the event time
