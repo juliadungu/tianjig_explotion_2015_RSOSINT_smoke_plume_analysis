@@ -157,22 +157,6 @@ The investigation supports a conservative two-phase reconstruction.
 
 - Terra/MODIS independently shows a dark plume over the Bohai Sea at **02:30 UTC on 13 August**.
 - Aqua/MODIS shows the plume in a later position **about three hours after** the 02:30 UTC Terra observation; NASA describes the movement as southeast toward the Shandong Peninsula.
-
-Taken together, the sources independently support:
-
-```text
-15:30 UTC        15:34 UTC        15:40 UTC             17:50 UTC
-H1 Himawari ───► explosions ───► H2 Himawari ───────► H3 Himawari
-   SWIR                                  │
-                                        │ overnight observational gap
-                                        ▼
-13 Aug 02:30 UTC                                      about three hours later
-N1 Terra/MODIS ───────────────────────────────────────────► N2 Aqua/MODIS
-dark plume                                                plume shifted SSE
-```
-
-The analysis does **not** fill the overnight observational gap with an inferred trajectory.
-
 ---
 
 # 7. What the evidence does **not** support
