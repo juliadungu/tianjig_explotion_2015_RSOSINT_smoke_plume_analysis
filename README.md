@@ -12,7 +12,7 @@ The same event was observed from space. CIMSS published a shortwave-infrared ani
 
 The following morning, NASA's **Terra/MODIS** instrument observed a dark smoke plume over the Bohai Sea at **02:30 UTC on 13 August**. NASA reports that **Aqua/MODIS** observed the plume again **about three hours later**, after it had moved southeast.
 
-The investigation combines the timestamped Himawari-8 observations with NASA Terra and Aqua imagery to reconstruct the satellite-observed aftermath. The NASA images are then used to estimate how far the visible smoke plume shifted between the two later observations.
+The investigation combines timestamped Himawari-8 observations with NASA Terra and Aqua imagery to reconstruct the satellite-observed aftermath.
 
 This investigation asks:
 
@@ -35,7 +35,6 @@ The analysis is a **remote-sensing OSINT event reconstruction**: it reconstructs
 | **H2** | 12 Aug 15:40 | Himawari-8 / 3.9 µm SWIR | First selected Himawari frame after both recorded explosions |
 | **H3** | 12 Aug 17:50 | Himawari-8 / 3.9 µm SWIR | Later state in the same Himawari sequence |
 | **N1** | 13 Aug 02:30 | Terra / MODIS imagery | Dark smoke plume over the Bohai Sea |
-| **N2** | 13 Aug, about three hours after 02:30 UTC | Aqua / MODIS imagery | Later plume; proxy-centroid displacement is ~40–60 km south-southeast from N1 |
 
 **For H1–H3, the primary chronology uses only the top Himawari-8 panel. The full three-panel composites are retained because MTSAT-2 and COMS-1 have different timestamps and must not be treated as simultaneous with Himawari.**
 
@@ -47,7 +46,6 @@ The source animation is preserved in [`images/himawari/`](images/himawari/), and
 - A later Himawari-8 observation shows the scene continuing to evolve.
 - NASA Terra imagery shows a dark smoke plume over the Bohai Sea the following morning.
 - Aqua observes the plume again about three hours later, farther to the south-southeast.
-- From the rendered NASA images, the visible plume core is estimated to have shifted roughly **40–60 km** between the two observations.
 
 ---
 
@@ -134,69 +132,14 @@ NASA reports that Aqua/MODIS acquired a second observation **about three hours a
 
 ---
 
-# 5. Terra → Aqua plume displacement
+# 5. Terra → Aqua plume movement
 
-NASA states that Terra/MODIS observed the dark plume at **02:30 UTC on 13 August 2015** and that Aqua captured a second image **about three hours later**, after the plume had moved southeast toward the Shandong Peninsula.
+NASA states that Terra/MODIS observed the dark smoke plume at **02:30 UTC on 13 August 2015**. Aqua observed the scene **about three hours later**, by which time NASA reports that the plume had moved southeast toward the Shandong Peninsula.
 
-The two NASA presentation images use the same 720×480 map frame. An ORB/RANSAC registration check on persistent image features returns an identity transform to numerical precision for the tested matches, supporting direct comparison in the shared pixel frame.
+The two images are used here as a visual comparison of the plume's later position. This investigation does **not** assign a distance or speed to that movement.
 
-![Terra and Aqua centroids](figures/figure_modis_terra_aqua_centroids.png)
-
-## Dark-smoke proxy
-
-A reproducible proxy mask is restricted to the central Bohai Sea (`x=250–500`, `y=120–340`) to avoid most land, labels and the inset map. Pixels are retained when:
-
-```text
-R − B > -15
-30 < mean(R,G,B) < 100
-```
-
-This rule is not a chemical smoke classifier. It is simply a transparent way to isolate the visually dark brown/gray plume core in the two rendered NASA images.
-
-![MODIS proxy masks](figures/figure_modis_plume_masks.png)
-
-The proxy centroid moves from approximately:
-
-```text
-Terra: (369.3, 200.5) px
-Aqua:  (389.7, 275.7) px
-```
-
-The displacement is **77.9 pixels**. Using the rendered **30 km** scale bar, measured at approximately **46 pixels** in the supplied NASA image, gives:
-
-```text
-scale ≈ 0.652 km/pixel
-nominal centroid displacement ≈ 50.8 km
-bearing ≈ 164.8°
-```
-
-In image coordinates this corresponds to approximately **13.3 km east** and **49.0 km south**. The derived direction is therefore south-southeast, consistent with NASA's qualitative description that the plume had moved southeast toward the Shandong Peninsula.
-
-![MODIS displacement](figures/figure_modis_plume_displacement.png)
-
-## Sensitivity
-
-Because the mask operates on rendered RGB values, the estimate is tested across 15 reasonable threshold combinations. The resulting centroid displacement ranges from approximately **42.9 to 61.4 km**, with bearings from **154° to 171°**.
-
-![MODIS threshold sensitivity](figures/figure_modis_displacement_sensitivity.png)
-
-The **50.8 km / 164.8°** value is an image-derived estimate from the rendered NASA figures, not a measurement from georeferenced MODIS Level-1 data. The robust conclusion is therefore simply that the visually dark plume core shifted **roughly 40–60 km toward the south-southeast** between the two NASA observations.
-
-This is an **apparent plume-centroid displacement**, not wind speed. The sensitivity test varies the proxy-mask thresholds; it does not quantify every source of uncertainty, such as the manually read scale bar or analysis-window placement.
-
-Data:
-
-```text
-data/modis_plume_displacement_summary.csv
-data/modis_plume_sensitivity.csv
-data/modis_registration_check.csv
-```
-
-Reproduce:
-
-```bash
-python scripts/analyze_modis_displacement.py
-```
+NASA Earth Observatory:  
+https://science.nasa.gov/earth/earth-observatory/smoke-over-the-bohai-sea-86410/
 
 ---
 
@@ -213,10 +156,20 @@ The investigation supports a conservative two-phase reconstruction.
 ### Next-morning atmospheric phase
 
 - Terra/MODIS independently shows a dark plume over the Bohai Sea at **02:30 UTC on 13 August**.
-- Aqua/MODIS shows the plume in a later, more southerly position **about three hours after** the 02:30 UTC Terra observation.
-- A reproducible rendered-RGB proxy places the nominal plume-core centroid displacement at **50.8 km, bearing 164.8°**.
-- Across 15 threshold combinations, the displacement remains in a **42.9–61.4 km** range with bearings of **154–171°**.
-- The robust result is therefore **tens of kilometres of apparent south-southeast plume-core displacement**, consistent with NASA's qualitative description of southeastward movement toward the Shandong Peninsula.
+- Aqua/MODIS shows the plume in a later position **about three hours after** the 02:30 UTC Terra observation; NASA describes the movement as southeast toward the Shandong Peninsula.
+
+Taken together, the sources independently support:
+
+```text
+15:30 UTC        15:34 UTC        15:40 UTC             17:50 UTC
+H1 Himawari ───► explosions ───► H2 Himawari ───────► H3 Himawari
+   SWIR                                  │
+                                        │ overnight observational gap
+                                        ▼
+13 Aug 02:30 UTC                                      about three hours later
+N1 Terra/MODIS ───────────────────────────────────────────► N2 Aqua/MODIS
+dark plume                                                plume shifted SSE
+```
 
 The analysis does **not** fill the overnight observational gap with an inferred trajectory.
 
@@ -229,7 +182,6 @@ This repository does **not** claim a continuous satellite-derived trajectory fro
 The current evidence does not justify deriving:
 
 - a continuous plume trajectory or centroid speed across the overnight observational gap;
-- wind speed from the Terra→Aqua apparent centroid displacement;
 - physical temperature, radiance, energy, or explosive yield from the rendered SWIR GIF;
 - chemical composition or toxicity of the visible plume;
 - blast pressure or structural damage from these atmospheric products;
@@ -284,15 +236,11 @@ data/control_validation_summary.csv
 MODIS displacement outputs are stored in:
 
 ```text
-data/modis_registration_check.csv
-data/modis_plume_displacement_summary.csv
-data/modis_plume_sensitivity.csv
 ```
 
 Reproduce the two quantitative phases with:
 
 ```bash
-python scripts/analyze_modis_displacement.py
 ```
 
 File hashes are stored in:
@@ -323,12 +271,3 @@ https://aiche.onlinelibrary.wiley.com/doi/10.1002/prs.11837
 
 **BBC News eyewitness video**  
 https://www.youtube.com/watch?v=993wlZ6XFSs
-
-**Bellingcat RS4OSINT — methodological inspiration**  
-https://bellingcat.github.io/RS4OSINT/C3_Blast.html
-
----
-
-## Methodological note
-
-This repository preserves the original source imagery, keeps embedded timestamps visible, separates observations from derived measurements, and states observational gaps rather than interpolating across them.
