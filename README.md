@@ -12,12 +12,12 @@ The same event was observed from space. CIMSS published a shortwave-infrared ani
 
 The following morning, NASA's **Terra/MODIS** instrument observed a dark smoke plume over the Bohai Sea at **02:30 UTC on 13 August**. NASA reports that **Aqua/MODIS** observed the plume again **about three hours later**, after it had moved southeast.
 
-Two quantitative checks are added to this chronology:
+Two simple checks are added to this chronology:
 
-- the **15:30 → 15:40 Himawari-8 rendered-SWIR change** inside the analysis ROI is compared against **31 matched control ROIs**;
-- the **Terra → Aqua displacement** of a reproducibly defined dark-plume proxy is measured in the common NASA image frame and tested across multiple threshold settings.
+- the change around Tianjin is compared with **31 similar-sized areas elsewhere in the Himawari image** to see whether the same kind of change appears across the scene;
+- the later movement of the visible smoke plume is estimated from NASA's Terra and Aqua images.
 
-The first test finds that the event-site H1→H2 contrast increase is larger than all 31 matched controls. The second places the later visible plume-core displacement at roughly **40–60 km toward the south-southeast**, with a nominal estimate of **50.8 km at 164.8°**.
+The Tianjin analysis area changes more than any of the 31 comparison areas. The NASA images indicate that the visible plume core later shifted roughly **40–60 km toward the south-southeast**.
 
 This investigation asks:
 
@@ -49,7 +49,7 @@ The source animation is preserved in [`images/himawari/`](images/himawari/), and
 ## Key findings
 
 - The fixed analysis ROI's rendered local-contrast metric rises from **8.70 at 15:30 UTC to 19.78 at 15:40 UTC**, a **~127% increase** across the independently known explosion interval.
-- The H1→H2 contrast change is **larger than all 31 matched control ROIs**: controls range from **−1.28 to +6.50**, versus **+11.08** in the analysis ROI.
+- The H1→H2 contrast change is **larger than all 31 comparison areas**: their changes range from **−1.28 to +6.50**, versus **+11.08** in the Tianjin analysis area.
 - The event-site signal remains elevated at H3 (**13.41** at 17:50 UTC), while the full 10-minute series shows continued evolution after the explosions.
 - Terra and Aqua use an effectively identical 720×480 presentation frame, allowing direct pixel comparison after an ORB/RANSAC registration check.
 - A threshold-sensitive dark-plume proxy gives a nominal Terra→Aqua centroid displacement of **50.8 km at 164.8°**. Across 15 reasonable threshold combinations, estimates range from **42.9–61.4 km** and **154–171°**.
@@ -187,9 +187,9 @@ python scripts/analyze_himawari_roi.py
 
 ---
 
-# 4. Spatial validation with matched control ROIs
+# 4. Checking the change against the surrounding image
 
-The H1→H2 analysis-ROI change could only be meaningful if it is larger than ordinary short-interval variation elsewhere in the rendered scene. A control experiment therefore uses **31 nearby 60×60 pixel ROIs** chosen by a fixed rule from the H1 image, before considering their H2 change.
+To check whether the H1→H2 change was specific to the Tianjin analysis area, the same image-change measurement was applied to **31 other 60×60-pixel areas** elsewhere in the Himawari image. These comparison areas were selected from the H1 image using the rules recorded in the analysis script, without using their H2 results.
 
 Control candidates must:
 
@@ -199,11 +199,11 @@ Control candidates must:
 - have an H1 mean rendered intensity within **±10** units of the event ROI;
 - have H1 rendered-intensity standard deviation **≤15**.
 
-This makes the controls broadly similar to the analysis ROI at baseline without selecting them according to their H2 behavior. The exact search bounds and exclusion coordinates are recorded in `scripts/validate_with_controls.py`.
+The comparison areas have broadly similar rendered-image characteristics in H1. The exact search bounds and selection rules are recorded in `scripts/validate_with_controls.py`.
 
-![Matched control ROI layout](figures/figure_control_roi_layout.png)
+![Comparison-area layout](figures/figure_control_roi_layout.png)
 
-For each matched control, the same statistic is calculated:
+For each comparison area, the same statistic is calculated:
 
 ```text
 Δcontrast = SD(H2) − SD(H1)
@@ -215,22 +215,22 @@ The event-site result is:
 Event ROI:   +11.08
 Control median: +0.00
 Control range:  -1.28 to +6.50
-Matched controls: 31
+Comparison areas: 31
 ```
 
-The event ROI's increase is **larger than all 31 matched controls** in this test. This is a descriptive finite-sample comparison, not a formal population-level significance test.
+The Tianjin analysis area's increase is **larger than all 31 comparison areas** in this test. This is a descriptive comparison, not a formal statistical significance test.
 
-![Event versus matched controls](figures/figure_event_vs_controls_distribution.png)
+![Tianjin area versus comparison areas](figures/figure_event_vs_controls_distribution.png)
 
 A ranked view shows the same result:
 
 ![Ranked event and controls](figures/figure_event_vs_controls_ranked.png)
 
-This strengthens the narrow claim that the sharp H1→H2 change was **spatially concentrated inside the analysis ROI rather than representative of ordinary scene-wide variation in comparable nearby regions**.
+This supports the narrower claim that the H1→H2 change in the Tianjin analysis area was larger than the changes measured in these 31 comparison areas.
 
 It does not transform the rendered GIF into calibrated physical measurements. The result remains a test of **relative rendered-image change**.
 
-The matched control table is available at:
+The comparison-area table is available at:
 
 ```text
 data/matched_control_rois.csv
@@ -351,7 +351,7 @@ The investigation supports a conservative two-phase reconstruction.
 - The cited local explosion times convert to **15:34:06 and 15:34:37 UTC**.
 - Himawari-8 provides a rendered 3.9 µm SWIR observation at **15:30 UTC** and another at **15:40 UTC**, bracketing the explosion interval.
 - In a fixed 60×60 pixel analysis ROI, rendered local contrast increases from **8.70 to 19.78** across H1→H2, approximately **+127%**.
-- The corresponding H1→H2 change of **+11.08** exceeds the complete range observed in **31 baseline-matched control ROIs** (**−1.28 to +6.50**).
+- The corresponding H1→H2 change of **+11.08** exceeds the range observed in the **31 comparison areas** (**−1.28 to +6.50**).
 - The selected H3 observation at **17:50 UTC** shows a later state in the same Himawari sequence.
 
 ### Next-morning atmospheric phase
@@ -390,7 +390,7 @@ The current evidence does not justify deriving:
 - physical temperature, radiance, energy, or explosive yield from the rendered SWIR GIF;
 - chemical composition or toxicity of the visible plume;
 - blast pressure or structural damage from these atmospheric products;
-- formal population-level statistical significance from the 31 matched control ROIs alone;
+- formal statistical significance from the 31 comparison areas alone;
 - an exact Aqua acquisition time: the NASA Earth Observatory source used here states only **“about three hours later.”**
 
 The CIMSS imagery is shortwave infrared; the NASA Earth Observatory images are rendered MODIS observations. They are complementary observations, not interchangeable measurements.
@@ -483,12 +483,3 @@ https://aiche.onlinelibrary.wiley.com/doi/10.1002/prs.11837
 
 **BBC News eyewitness video**  
 https://www.youtube.com/watch?v=993wlZ6XFSs
-
-**Bellingcat RS4OSINT — methodological inspiration**  
-https://bellingcat.github.io/RS4OSINT/C3_Blast.html
-
----
-
-## Methodological note
-
-This repository follows the evidentiary discipline of remote-sensing OSINT: preserve original source files; retain embedded timestamps; separate asynchronous sensors; distinguish rendered-image metrics from physical measurements; test analysis-ROI change against baseline-matched controls selected without using H2 values; test rendered-image plume displacement across multiple thresholds; use independent sources as temporal checks; and state observational gaps rather than interpolating across them.
