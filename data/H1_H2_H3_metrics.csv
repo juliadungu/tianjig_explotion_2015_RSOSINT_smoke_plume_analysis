@@ -1,0 +1,4 @@
+selection_id,timestamp_utc,roi_mean_rendered_intensity,roi_std_rendered_intensity,roi_p05_rendered_intensity,roi_p95_rendered_intensity,roi_extreme_pixel_count,roi_pixel_count
+H1,2015-08-12T15:30:00Z,105.11138888888888,8.697929719440195,96.0,125.0,16,3600
+H2,2015-08-12T15:40:00Z,106.62462962962964,19.77623647673676,95.0,126.0,112,3600
+H3,2015-08-12T17:50:00Z,111.38046296296295,13.406996783345189,105.0,126.0,54,3600

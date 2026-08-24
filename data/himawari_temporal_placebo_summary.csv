@@ -1,0 +1,2 @@
+explosion_interval,explosion_interval_delta_std,explosion_interval_abs_delta_std,total_adjacent_10min_intervals,rank_signed_increase_desc,rank_abs_change_desc,intervals_with_signed_increase_ge_explosion,intervals_with_abs_change_ge_explosion,empirical_upper_tail_fraction_signed,empirical_upper_tail_fraction_abs
+2015-08-12T15:30:00Z to 2015-08-12T15:40:00Z,11.078306757296565,11.078306757296565,24,1,1,1,1,0.041666666666666664,0.041666666666666664

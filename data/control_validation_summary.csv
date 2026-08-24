@@ -1,0 +1,2 @@
+event_h1_std,event_h2_std,event_delta_std,event_pct_change_std,n_matched_controls,control_delta_median,control_delta_min,control_delta_max,event_percentile_vs_controls
+8.692427841212798,19.77593072593089,11.083502884718094,127.5075627567325,31,0.004971866154664273,-1.2763877516950388,6.49843142823709,100.0
