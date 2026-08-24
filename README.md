@@ -16,7 +16,7 @@ The investigation combines timestamped Himawari-8 observations with NASA Terra a
 
 This investigation asks:
 
-> **Can open satellite records independently reconstruct the Tianjin event, distinguish the immediate event-site signal from ordinary nearby variation, and quantify the later displacement of the visible smoke plume?**
+> **How can openly available satellite imagery be combined to reconstruct the 2015 Tianjin explosions and their atmospheric aftermath?**
 
 This repository deliberately separates two evidence phases rather than pretending that they form a continuous homogeneous time series:
 
