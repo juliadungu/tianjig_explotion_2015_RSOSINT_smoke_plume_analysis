@@ -1,0 +1,4 @@
+selection_id,gif_frame_index,himawari_time_utc,mtsat_time_utc,coms_time_utc,role,output_file
+H1,6,2015-08-12T15:30:00Z,2015-08-12T15:32:00Z,2015-08-12T15:30:00Z,pre-event comparison frame,images/himawari/selected/H1_2015-08-12_1530Z_pre_event.jpg
+H2,7,2015-08-12T15:40:00Z,2015-08-12T15:32:00Z,2015-08-12T15:30:00Z,first selected Himawari frame after the 15:34 explosions,images/himawari/selected/H2_2015-08-12_1540Z_first_post_event.jpg
+H3,20,2015-08-12T17:50:00Z,2015-08-12T17:14:00Z,2015-08-12T17:45:00Z,later evolution frame,images/himawari/selected/H3_2015-08-12_1750Z_later_evolution.jpg
