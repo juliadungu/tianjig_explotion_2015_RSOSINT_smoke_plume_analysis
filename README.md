@@ -1,4 +1,4 @@
-# An OSINT Reconstruction of the August 2015 Smoke Plume of the Tianjin Explosion from Space, temporal and spatial verification of an industrial disaster using multiple independent open satellite observations.
+### An OSINT Reconstruction of the August 2015 Smoke Plume of the Tianjin Explosion from Space, temporal and spatial verification of an industrial disaster using multiple independent open satellite observations.
 
 This is a case study analysing the smoke plume of the Tianjin port explosion. 
 
