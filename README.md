@@ -526,11 +526,6 @@ https://rammb.cira.colostate.edu/templates/loop_directory.asp?data_folder=dev/li
 **BBC News — Tianjin explosion eyewitness footage**
 https://www.youtube.com/watch?v=993wlZ6XFSs
 
-### Methodological inspiration
-
-**Bellingcat — Remote Sensing for OSINT: Blast Damage Assessment**
-https://bellingcat.github.io/RS4OSINT/C3_Blast.html
-
 ---
 
 ## Attribution
