@@ -70,10 +70,6 @@ It is used only as methodological inspiration.
 
 The ROI statistics, matched-control comparison, temporal placebo, registration check, MODIS proxy mask, and displacement calculations are original derived analyses in this repository. They are not claims made by NASA, CIMSS, BBC, Xinhua, or Bellingcat.
 
-## Excluded legacy CIRA loop
-
-The legacy RAMMB/CIRA true-color loop investigated earlier is excluded from event evidence because the currently served frames inspected during this project contained embedded 31 July 2015 timestamps despite August-oriented filenames.
-
 
 ## Publication-facing sourcing decision
 
@@ -83,3 +79,24 @@ The GitHub README intentionally uses the English-language AIChE / *Process Safet
 - https://aiche.onlinelibrary.wiley.com/doi/10.1002/prs.11837
 
 The Chinese-language Xinhua-hosted republication is not linked from the publication-facing README. This keeps the narrative independently readable while preserving the provenance decision in this audit.
+
+
+## Claim-level audit: event time and coordinates
+
+### AIChE / Process Safety Progress
+Source: https://aiche.onlinelibrary.wiley.com/doi/10.1002/prs.11830
+
+- **Accident Details and Its Impacts:** gives the warehouse coordinates **39°02′22.98″ N, 117°44′11.64″ E**, states that the fire began at **10:51 PM**, and says it was followed by two violent explosions.
+- **First Response:** gives the first explosion at **11:34:06 PM** and the second, more violent explosion at **11:34:37 PM**.
+
+### Remote Sensing (2024)
+Source: https://www.mdpi.com/2072-4292/16/22/4241
+
+- Independently gives **23:34:06 local time (UTC+8)** for the first explosion.
+- Gives **23:34:37** for the second explosion, **31 seconds later**.
+
+### UTC conversion used in this repository
+- 23:34:06 − 08:00 = **15:34:06 UTC**
+- 23:34:37 − 08:00 = **15:34:37 UTC**
+
+The UTC timestamps are derived conversions; they are not quoted as UTC values from AIChE.

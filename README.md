@@ -60,15 +60,21 @@ The source animation is preserved in [`images/himawari/`](images/himawari/), and
 
 # 1. Establishing the event time
 
-The official accident investigation gives the warehouse location as **39°02′22.98″ N, 117°44′11.64″ E** and records:
+The English-language *Process Safety Progress* investigation summary places the Ruihai dangerous-goods warehouse at **39°02′22.98″ N, 117°44′11.64″ E**. In **“Accident Details and Its Impacts”**, it states that the fire began at 10:51 PM local time and was followed by two violent explosions. In **“First Response”**, it gives the exact local explosion times as **11:34:06 PM** and **11:34:37 PM**, describing the second as more violent.
+
+A later open-access *Remote Sensing* study independently reproduces the chronology in 24-hour notation: **23:34:06 local time (UTC+8)** for the first explosion and **23:34:37** for the second, 31 seconds later.
+
+Converted from China Standard Time (UTC+8), the two major explosions occurred at:
 
 - first explosion: **15:34:06 UTC**;
 - second, larger explosion: **15:34:37 UTC**.
 
-Source:  
-https://aiche.onlinelibrary.wiley.com/doi/10.1002/prs.11830
+Sources:
 
-These times are external to the satellite imagery and therefore provide an independent temporal anchor.
+- AIChE / *Process Safety Progress*: https://aiche.onlinelibrary.wiley.com/doi/10.1002/prs.11830
+- *Remote Sensing* (2024): https://www.mdpi.com/2072-4292/16/22/4241
+
+The UTC values are **derived conversions in this repository**: eight hours are subtracted from the cited local times. Because the event times come from sources independent of the satellite imagery, they provide the temporal anchor for the H1 → H2 comparison.
 
 ---
 
@@ -309,7 +315,7 @@ The image independently establishes that a dark plume associated with the Tianji
 
 ## N2 — Aqua/MODIS, about three hours after Terra
 
-![Aqua MODIS, 13 August 2015](images/modis/aqua_2015-08-13_~0530Z.jpg)
+![Aqua MODIS, 13 August 2015](images/modis/aqua_2015-08-13_about3h_after_terra.jpg)
 
 NASA reports that Aqua/MODIS acquired a second observation **about three hours after Terra**, after the plume had moved southeast toward the Shandong Peninsula.
 
@@ -436,21 +442,8 @@ The CIMSS imagery is shortwave infrared; the NASA Earth Observatory images are r
 
 ---
 
-# 10. Source validation and rejected evidence
 
-An older CIRA/RAMMB Tianjin true-color loop was initially considered as the bridge between the two evidence phases. During source checking, the images currently returned by that legacy loop were found to contain embedded **31 July 2015** timestamps despite filenames referring to 12–13 August.
-
-Those frames are therefore **excluded from the evidentiary chain**.
-
-The source-validation note is preserved here:
-
-[`notes/source-validation.md`](notes/source-validation.md)
-
-This exclusion is intentional: a reproducible RSOSINT study should document failed or stale sources rather than silently substitute them.
-
----
-
-# 11. Reproducibility
+# 10. Reproducibility
 
 The original CIMSS GIF is stored unchanged at:
 
@@ -515,76 +508,8 @@ data/checksums.sha256
 
 ---
 
-# Repository structure
-
-```text
-tianjin-plume-osint/
-├── README.md
-├── SOURCE_AUDIT.md
-├── data/
-│   ├── event_timeline.csv
-│   ├── observations.csv
-│   ├── selected_frames.csv
-│   ├── sources.csv
-│   ├── H1_H2_H3_metrics.csv
-│   ├── himawari_roi_timeseries.csv
-│   ├── matched_control_rois.csv
-│   ├── control_validation_summary.csv
-│   ├── himawari_temporal_placebo_intervals.csv
-│   ├── himawari_temporal_placebo_summary.csv
-│   ├── modis_registration_check.csv
-│   ├── modis_plume_displacement_summary.csv
-│   ├── modis_plume_sensitivity.csv
-│   ├── aqua_timestamp_verification.csv
-│   └── checksums.sha256
-├── images/
-│   ├── himawari/
-│   │   ├── HIMAWARI3PAN_NOMAP_12AUGUST2015_1500_1900anim.gif
-│   │   ├── extracted/
-│   │   └── selected/
-│   │       ├── H1_2015-08-12_1530Z_pre_event.jpg
-│   │       ├── H2_2015-08-12_1540Z_first_post_event.jpg
-│   │       └── H3_2015-08-12_1750Z_later_evolution.jpg
-│   └── modis/
-│       ├── terra_2015-08-13_0230Z.jpg
-│       └── aqua_2015-08-13_~0530Z.jpg
-├── figures/
-│   ├── figure_h1_h2_h3_roi.png
-│   ├── figure_himawari_roi_contrast_timeseries.png
-│   ├── figure_event_vs_controls_distribution.png
-│   ├── figure_modis_terra_aqua_centroids.png
-│   ├── figure_modis_plume_displacement.png
-│   └── figure_modis_displacement_sensitivity.png
-├── notes/
-│   └── source-validation.md
-├── notebooks/
-│   └── evidence_timeline.ipynb
-├── scripts/
-│   ├── extract_cimss_gif.py
-│   ├── analyze_himawari_roi.py
-│   ├── validate_with_controls.py
-│   ├── temporal_placebo_test.py
-│   └── analyze_modis_displacement.py
-└── requirements.txt
-```
-
----
 
 # Sources
-
-## Source verification status
-
-The external factual claims in this repository were rechecked against the original or institutional sources:
-
-- **AIChE / Process Safety Progress:** Byron Sun's English-language *Tianjin Explosion Investigation Report Summary* states that a State Council-designated accident investigation team released the final report. It reproduces the warehouse coordinates **39°02′22.98″ N, 117°44′11.64″ E**, the fire start at **22:51**, and the two explosions at **23:34:06 and 23:34:37 local time**. The exact fire-start second (**22:51:46**) is not needed for this case study and is no longer presented in the publication-facing narrative.
-- **CIMSS:** confirms the three SWIR panels are **Himawari-8 3.9 µm**, **MTSAT-2 3.75 µm**, and **COMS-1 3.75 µm**; states that all three viewed the explosion and that the event produced a strong SWIR thermal signature.
-- **NASA Earth Observatory:** confirms Terra/MODIS at **02:30 UTC** on 13 August and Aqua/MODIS **about three hours later**, with the plume having moved southeast. NASA does **not** provide a more exact Aqua time on the Earth Observatory page used here.
-- **BBC News:** the linked YouTube upload is titled *“Tianjin explosion video captures fear of eyewitnesses - BBC News”* and is used only as ground-level context.
-- **Bellingcat RS4OSINT:** is used only as methodological inspiration for placebo testing and validation logic, not as a factual source about Tianjin.
-
-A previously asserted exact Aqua `05:30–05:35 UTC` granule assignment has been **removed** because it was not independently verified strongly enough from the source set used in this repository.
-
----
 
 **CIMSS Satellite Blog — Explosion in Tianjin, China**  
 https://cimss.ssec.wisc.edu/satellite-blog/archives/19209
@@ -611,4 +536,4 @@ https://bellingcat.github.io/RS4OSINT/C3_Blast.html
 
 ## Methodological note
 
-This repository follows the evidentiary discipline of remote-sensing OSINT: preserve original source files; retain embedded timestamps; separate asynchronous sensors; distinguish rendered-image metrics from physical measurements; test event-site change against baseline-matched controls selected without using H2 values; test rendered-image plume displacement across multiple thresholds; use independent sources as temporal checks; document rejected evidence; and state observational gaps rather than interpolating across them.
+This repository follows the evidentiary discipline of remote-sensing OSINT: preserve original source files; retain embedded timestamps; separate asynchronous sensors; distinguish rendered-image metrics from physical measurements; test event-site change against baseline-matched controls selected without using H2 values; test rendered-image plume displacement across multiple thresholds; use independent sources as temporal checks; and state observational gaps rather than interpolating across them.

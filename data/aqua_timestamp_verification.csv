@@ -1,2 +1,0 @@
-observation_id,platform,instrument,verified_source,verified_timing,exact_time_status,note
-N2,Aqua,MODIS,NASA Earth Observatory — Smoke over the Bohai Sea,about three hours after Terra 02:30 UTC observation,not independently verified in this repository,Do not publish 05:30–05:35 UTC as exact without a directly verified granule record intersecting the Tianjin scene.

@@ -4,7 +4,7 @@ import numpy as np, pandas as pd, math
 
 ROOT = Path(__file__).resolve().parents[1]
 TERRA = np.array(Image.open(ROOT/"images/modis/terra_2015-08-13_0230Z.jpg").convert("RGB"))
-AQUA = np.array(Image.open(ROOT/"images/modis/aqua_2015-08-13_~0530Z.jpg").convert("RGB"))
+AQUA = np.array(Image.open(ROOT/"images/modis/aqua_2015-08-13_about3h_after_terra.jpg").convert("RGB"))
 
 ROI=(250,120,500,340)
 KM_PER_PX=30/46
