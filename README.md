@@ -1,6 +1,6 @@
 # Reconstructing the Tianjin Explosion from Space
 
-### A remote-sensing OSINT event reconstruction using shortwave-infrared imagery and MODIS observations
+### A Remote-Sensing OSINT Event Reconstruction
 
 On 12 August 2015, two major explosions struck the Ruihai hazardous-goods warehouse in Tianjin. The official investigation records the first explosion at **23:34:06 local time (15:34:06 UTC)** and the second at **23:34:37 local time (15:34:37 UTC)**.
 
@@ -50,7 +50,6 @@ The source animation is preserved in [`images/himawari/`](images/himawari/), and
 
 - The fixed analysis ROI's rendered local-contrast metric rises from **8.70 at 15:30 UTC to 19.78 at 15:40 UTC**, a **~127% increase** across the independently known explosion interval.
 - The H1→H2 contrast change is **larger than all 31 matched control ROIs**: controls range from **−1.28 to +6.50**, versus **+11.08** in the analysis ROI.
-- In the temporal placebo, the 15:30→15:40 interval ranks **#1 of 24** by absolute 10-minute change and **#1 of 24** by signed increase.
 - The event-site signal remains elevated at H3 (**13.41** at 17:50 UTC), while the full 10-minute series shows continued evolution after the explosions.
 - Terra and Aqua use an effectively identical 720×480 presentation frame, allowing direct pixel comparison after an ORB/RANSAC registration check.
 - A threshold-sensitive dark-plume proxy gives a nominal Terra→Aqua centroid displacement of **50.8 km at 164.8°**. Across 15 reasonable threshold combinations, estimates range from **42.9–61.4 km** and **154–171°**.
@@ -128,7 +127,7 @@ It demonstrates continued atmospheric/thermal evolution after the event. It is *
 
 The source GIF is a rendered, color-enhanced product rather than calibrated radiance data. Quantitative analysis is therefore restricted to **rendered-image change**, not physical temperature, radiance, energy, or explosive yield.
 
-A fixed **60 × 60 pixel region of interest (ROI)** is drawn around the persistent thermal feature associated with the Tianjin event in the rendered Himawari-8 panel. The ROI was selected from the imagery itself; it was **not independently projected from the warehouse coordinates**. The same pixel coordinates are then held fixed for every 10-minute Himawari observation from **15:00 to 19:00 UTC**.
+A fixed **60 × 60 pixel region of interest (ROI)** is drawn around the persistent thermal feature associated with the Tianjin event in the rendered Himawari-8 panel. The ROI was selected from the imagery itself; it was **not independently projected from the warehouse coordinates**. The same pixel coordinates are then held fixed across the selected Himawari observations in the CIMSS sequence.
 
 ![H1-H2-H3 with ROI](figures/figure_h1_h2_h3_roi.png)
 
@@ -152,11 +151,11 @@ This metric has no physical temperature unit. Its purpose is only to quantify ho
 
 Between H1 and H2, the ROI's rendered-intensity standard deviation rises from **8.70 to 19.78**, an increase of approximately **127%**. The count of extreme rendered pixels rises from **16 to 112**. By H3 at 17:50, the local contrast has fallen to **13.41**, remaining above H1 but below the immediate H2 state.
 
-The full 10-minute sequence gives the necessary context:
+The broader Himawari sequence gives additional context:
 
 ![Himawari ROI contrast time series](figures/figure_himawari_roi_contrast_timeseries.png)
 
-The metric begins increasing before the explosions, consistent with the fact that a fire was already underway. A much sharper change is visible across the independently bracketed **15:30 → 15:40** interval containing the two explosions at 15:34 UTC. The rendered local contrast continues to evolve afterward and reaches larger values later in the sequence before declining.
+The rendered local contrast differs between the selected H1, H2 and H3 observations. Because this repository does not independently establish a uniform acquisition interval for every frame in the CIMSS animation, it does not use frame spacing as a quantitative temporal test.
 
 This is evidence of a **substantial change in the rendered Himawari SWIR signal inside the fixed analysis ROI**. It is not, by itself, a measurement of explosion energy.
 
@@ -251,52 +250,8 @@ python scripts/validate_with_controls.py
 
 ---
 
-# 5. Temporal placebo test
 
-The spatial-control test asks whether the H1→H2 change is unusually concentrated inside the analysis ROI. A separate temporal placebo asks whether the **15:30→15:40** change is unusual compared with every other adjacent 10-minute interval in the same fixed analysis ROI.
-
-The same rendered local-contrast metric is differenced across all **24** adjacent 10-minute intervals from 15:00 to 19:00 UTC.
-
-![Temporal placebo](figures/figure_himawari_temporal_placebo.png)
-
-For the explosion interval:
-
-```text
-15:30 → 15:40
-Δ ROI SD = +11.08
-```
-
-It ranks:
-
-```text
-#1 of 24 for signed increases
-#1 of 24 for absolute 10-minute changes
-```
-
-Only **1 of 24** intervals has a signed increase at least as large as the explosion interval, and only **1 of 24** has an absolute change at least as large.
-
-![Temporal placebo ranked](figures/figure_himawari_temporal_placebo_ranked.png)
-
-This means the H1→H2 jump is not only spatially unusual relative to matched nearby controls; it is also among the strongest short-interval changes observed inside the analysis ROI during the four-hour Himawari sequence.
-
-This is a descriptive empirical comparison, not a formal significance test.
-
-Data:
-
-```text
-data/himawari_temporal_placebo_intervals.csv
-data/himawari_temporal_placebo_summary.csv
-```
-
-Reproduce:
-
-```bash
-python scripts/temporal_placebo_test.py
-```
-
----
-
-# 6. Next-morning visible smoke
+# 5. Next-morning visible smoke
 
 The shortwave-infrared sequence ends on 12 August. The next evidence phase comes from NASA MODIS natural-color imagery on 13 August.
 
@@ -321,7 +276,7 @@ NASA reports that Aqua/MODIS acquired a second observation **about three hours a
 
 ---
 
-# 7. Terra → Aqua plume displacement
+# 6. Terra → Aqua plume displacement
 
 NASA states that Terra/MODIS observed the dark plume at **02:30 UTC on 13 August 2015** and that Aqua captured a second image **about three hours later**, after the plume had moved southeast toward the Shandong Peninsula.
 
@@ -387,7 +342,7 @@ python scripts/analyze_modis_displacement.py
 
 ---
 
-# 8. What the evidence supports
+# 7. What the evidence supports
 
 The investigation supports a conservative two-phase reconstruction.
 
@@ -397,7 +352,7 @@ The investigation supports a conservative two-phase reconstruction.
 - Himawari-8 provides a rendered 3.9 µm SWIR observation at **15:30 UTC** and another at **15:40 UTC**, bracketing the explosion interval.
 - In a fixed 60×60 pixel analysis ROI, rendered local contrast increases from **8.70 to 19.78** across H1→H2, approximately **+127%**.
 - The corresponding H1→H2 change of **+11.08** exceeds the complete range observed in **31 baseline-matched control ROIs** (**−1.28 to +6.50**).
-- The same event-site metric remains above H1 at **17:50 UTC**, while the complete 10-minute sequence shows continued post-event evolution.
+- The selected H3 observation at **17:50 UTC** shows a later state in the same Himawari sequence.
 
 ### Next-morning atmospheric phase
 
@@ -424,7 +379,7 @@ The analysis does **not** fill the overnight observational gap with an inferred 
 
 ---
 
-# 9. What the evidence does **not** support
+# 8. What the evidence does **not** support
 
 This repository does **not** claim a continuous satellite-derived trajectory from 15:34 UTC on 12 August to the MODIS observations on 13 August.
 
@@ -443,7 +398,7 @@ The CIMSS imagery is shortwave infrared; the NASA Earth Observatory images are r
 ---
 
 
-# 10. Reproducibility
+# 9. Reproducibility
 
 The original CIMSS GIF is stored unchanged at:
 
@@ -497,7 +452,6 @@ Reproduce the two quantitative phases with:
 ```bash
 python scripts/analyze_himawari_roi.py
 python scripts/validate_with_controls.py
-python scripts/temporal_placebo_test.py
 python scripts/analyze_modis_displacement.py
 ```
 
@@ -530,4 +484,11 @@ https://aiche.onlinelibrary.wiley.com/doi/10.1002/prs.11837
 **BBC News eyewitness video**  
 https://www.youtube.com/watch?v=993wlZ6XFSs
 
+**Bellingcat RS4OSINT — methodological inspiration**  
+https://bellingcat.github.io/RS4OSINT/C3_Blast.html
+
 ---
+
+## Methodological note
+
+This repository follows the evidentiary discipline of remote-sensing OSINT: preserve original source files; retain embedded timestamps; separate asynchronous sensors; distinguish rendered-image metrics from physical measurements; test analysis-ROI change against baseline-matched controls selected without using H2 values; test rendered-image plume displacement across multiple thresholds; use independent sources as temporal checks; and state observational gaps rather than interpolating across them.
