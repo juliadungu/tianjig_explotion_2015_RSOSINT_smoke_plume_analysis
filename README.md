@@ -6,7 +6,7 @@ On 12 August 2015, a series of explosions struck a hazardous-goods storage facil
 
 The scale of the event was captured by eyewitnesses on the ground:
 
-[![BBC News eyewitness footage of the Tianjin explosion](https://img.youtube.com/vi/993wlZ6XFSs/maxresdefault.jpg)](https://www.youtube.com/watch?v=993wlZ6XFSs)
+[![BBC News eyewitness footage of the Tianjin explosion](https://img.youtube.com/vi/993wlZ6XFSs/hqdefault.jpg)](https://www.youtube.com/watch?v=993wlZ6XFSs)
 
 *Eyewitness footage published by BBC News. The video captures the fire and subsequent explosions from a distant viewpoint.*
 
